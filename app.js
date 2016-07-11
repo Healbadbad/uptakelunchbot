@@ -56,6 +56,10 @@ app.use(function(err, req, res, next) {
   });
 });
 
+app.post('/', function(req, res){
+  console.log("posted");
+
+});
 
 
 
@@ -120,8 +124,8 @@ bot.on('start', function() {
 });
 
 bot.on('message', function(msg){
-  console.log(msg)
-
+  // console.log(msg)
+  return;
 });
 
 module.exports = app;
