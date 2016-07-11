@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.post('/wow', function(req, res){
-  console.log("posted: ", req);
+  console.log("posted: ", req.length);
   res.status(200);
   res.render('Success!');
 });
