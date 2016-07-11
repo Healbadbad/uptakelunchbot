@@ -25,8 +25,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.post('/wow', function(req, res){
-  console.log("posted");
+  console.log("posted: ", req);
   res.status(200);
+  res.render('Success!');
 });
 
 // catch 404 and forward to error handler
