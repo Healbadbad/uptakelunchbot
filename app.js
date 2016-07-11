@@ -24,8 +24,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.post('/wow', function(req, res){
+  console.log("posted");
+  res.status(200);
+});
 
 // catch 404 and forward to error handler
+
+
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
@@ -56,10 +62,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.post('/', function(req, res){
-  console.log("posted");
 
-});
 
 
 
@@ -118,10 +121,11 @@ bot.on('start', function() {
       ]
     }
   ]};
-  bot.postMessageToGroup('random-lunch', 'Hello channel!', params);
-  bot.postMessageToUser('nathanblank', 'hello bro!');
+  // bot.postMessageToGroup('random-lunch', 'Hello channel!', params);
+  bot.postMessageToUser('nathanblank', 'hello bro!', params);
   // bot.postMessageToGroup('some-private-group', 'hello group chat!');
 });
+console.log("Posted spam!");
 
 bot.on('message', function(msg){
   // console.log(msg)
