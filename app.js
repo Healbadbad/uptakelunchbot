@@ -210,7 +210,7 @@ bot.on('message', function(msg){
     // console.log(text.find("<@U1P11PZLH>"));
     if(text.startsWith("<@U1P11PZLH>") && (text.split(" ")[1] == "accept" || text.split(" ")[1] == "join")){
       if(lunchSession.users.indexOf(msg.user) == -1){
-
+        lunchSession.users.push(msg.user)
         bot.postMessageToGroup('random-lunch', "Lunch invitation accepted. (do stuff here)");
 
       } else{
