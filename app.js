@@ -10,6 +10,11 @@ var users = require('./routes/users');
 
 var app = express();
 
+
+var lunchSessions = []
+var lunchSession = {active:false, users:[]}
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -32,6 +37,17 @@ app.post('/wow', function(req, res){
 
 app.post('/datastream',function(req,res) {
   console.log("DATA");
+  if(!lunchSession.active){
+    bot.postMessageToGroup('random-lunch', "Lunch session started.");
+    lunchSession.active = true;
+    lunchSession.users = ["LittleBit"];
+    var timer = setTimeout(function(){ // 5 minute timeout
+      bot.postMessageToGroup('random-lunch', "Test Lunch session ended with " + lunchSession.users.length + " users");
+      lunchSession.active = false;
+    }, 1000*1*60);
+  } else {
+    bot.postMessageToGroup('random-lunch', "Stop Hitting the button.");
+  }
   res.render("Posted");
 });
 
@@ -73,9 +89,6 @@ app.use(function(err, req, res, next) {
 
 
 
-
-var lunchSessions = []
-var lunchSession = {active:false, users:[]}
 
 var Bot = require('slackbots');
 
