@@ -32,6 +32,7 @@ app.post('/wow', function(req, res){
 
 app.post('/datastream',function(req,res) {
   console.log("DATA");
+  res.render("Posted");
 });
 
 app.post('/test', function(req,res){
