@@ -29,78 +29,11 @@ app.post('/wow', function(req, res){
   res.status(200);
   res.render('Success!');
 });
-app.get('/test', function(req, res){
-  console.log("doing the one thing");
-  request.post(
-      {url:'https://hooks.slack.com/services/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',
-      // {url:'http://localhost:3000/test',
-      formData:{ payload:
 
-          // '{ "text": "https://slack.com"}'
-
-          '{"bot_access_token":"' + process.env.BOT_API_KEY + '", \
-          \
-          "attachments": [ \
-            {\
-              "title": "The Further Adventures of Slackbot",\
-              "fields": [\
-                {\
-                  "title": "Volume",\
-                  "value": "1",\
-                  "short": true\
-                },\
-                {\
-                  "title": "Issue",\
-                  "value": "3",\
-                  "short": true\
-                }\
-              ],\
-              "author_name": "Stanford S. Strickland",\
-              "author_icon": "https://api.slack.com/img/api/homepage_custom_integrations-2x.png",\
-              "image_url": "http://i.imgur.com/OJkaVOI.jpg?1"\
-            },\
-            {\
-              "title": "Synopsis",\
-              "text": "After @episod pushed exciting changes to a devious new branch back in Issue 1, Slackbot notifies @don about an unexpected deploy..."\
-            },\
-            {\
-              "fallback": "Would you recommend it to customers?",\
-              "title": "Would you recommend it to customers?",\
-              "callback_id": "comic_1234_xyz",\
-              "color": "#3AA3E3",\
-              "attachment_type": "default",\
-              "actions": [\
-                {\
-                  "name": "recommend",\
-                  "text": "Recommend",\
-                  "type": "button",\
-                  "value": "recommend"\
-                },\
-                {\
-                  "name": "no",\
-                  "text": "No",\
-                  "type": "button",\
-                  "value": "bad"\
-                }\
-              ]\
-            }\
-          ]}'
-
-
-      }},
-      function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-          console.log("success: ", body)
-        } else {
-          console.log("error: ",response.statusCode, body)
-        }
-      }
-  );
-  console.log()
-  res.status(200);
-  res.render('Success!');
-
+app.post('/datastream',function(req,res) {
+  console.log("DATA");
 });
+
 app.post('/test', function(req,res){
   res.status(200);
   res.render('Post Success!');
