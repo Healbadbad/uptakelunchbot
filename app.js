@@ -63,6 +63,10 @@ app.post('/datastream',function(req,res) {
     bot.postMessageToGroup('random-lunch', "Lunch session started.");
     lunchSession.active = true;
     lunchSession.users = ["LittleBit"];
+    output(100,500);
+    setTimeout(function(){
+      output(100,500);
+    },1000*1);
     var timer = setTimeout(function(){ // 5 minute timeout
       bot.postMessageToGroup('random-lunch', "Test Lunch session ended with " + lunchSession.users.length + " users");
       lunchSession.active = false;
@@ -182,7 +186,13 @@ bot.on('message', function(msg){
       if(lunchSession.users.indexOf(msg.user) == -1){
         lunchSession.users.push(msg.user)
         bot.postMessageToGroup('random-lunch', "Lunch invitation accepted. (do stuff here)");
-
+        output(100,500);
+        setTimeout(function(){
+          output(100,500);
+        },1000*1);
+        setTimeout(function(){
+          output(100,500);
+        },1000*2);
       } else{
         bot.postMessageToGroup('random-lunch', "Lunch invitation already accepted.");
       }
@@ -199,6 +209,13 @@ bot.on('message', function(msg){
           bot.postMessageToGroup('random-lunch', "Test Lunch session ended with " + lunchSession.users.length + " users");
           lunchSession.active = false;
         }, 1000*1*60);
+
+        output(100,500);
+        setTimeout(function(){
+          output(100,500);
+        },1000*1);
+
+
       } else {
         bot.postMessageToGroup('random-lunch', "Test Lunch session alread active!. Tell me accept to join the session.");
       }
