@@ -35,6 +35,28 @@ app.post('/wow', function(req, res){
   res.render('Success!');
 });
 
+
+var output= function(power, time){
+  var options = { method: 'POST',
+    url: 'https://api-http.littlebitscloud.cc/devices/00e04c03497b/output',
+    headers:
+    { 'postman-token': '9c57f00e-8bd6-7b50-2100-280be9cc5aa5',
+      'cache-control': 'no-cache',
+      'content-type': 'application/json',
+      authorization: '632adf9b358f49f74167f073ec2ef07ece4b13d57ac4008426ce005fd7168483' },
+    body: { percent: power, duration_ms: time },
+    json: true };
+
+  request(options, function (error, response, body) {
+    if (error) throw new Error(error);
+
+    // console.log(body);
+  });
+}
+
+
+
+
 app.post('/datastream',function(req,res) {
   console.log("DATA");
   if(!lunchSession.active){
@@ -52,6 +74,7 @@ app.post('/datastream',function(req,res) {
 });
 
 app.post('/test', function(req,res){
+  output(100,1000)
   res.status(200);
   res.render('Post Success!');
 });
