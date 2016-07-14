@@ -63,25 +63,25 @@ app.post('/datastream',function(req,res) {
     bot.postMessageToGroup('random-lunch', "Lunch session started.");
     lunchSession.active = true;
     lunchSession.users = ["LittleBit"];
-    output(100,500);
+    output(10,100);
     setTimeout(function(){
-      output(100,500);
+      output(10,100);
     },1000*1);
     var timer = setTimeout(function(){ // 5 minute timeout
       bot.postMessageToGroup('random-lunch', "Test Lunch session ended with " + lunchSession.users.length + " users");
       lunchSession.active = false;
 
-      output(100,500);
+      output(10,100);
       setTimeout(function(){
-        output(75,500);
+        output(5,100);
       },1000*1);
       // output(100,500);
       setTimeout(function(){
-        output(50,500);
+        output(3,100);
       },1000*2);
       // output(100,500)
       setTimeout(function(){
-        output(25,500);
+        output(3,500);
       },1000*3);
 
     }, 1000*1*60);
@@ -200,12 +200,12 @@ bot.on('message', function(msg){
       if(lunchSession.users.indexOf(msg.user) == -1){
         lunchSession.users.push(msg.user)
         bot.postMessageToGroup('random-lunch', "Lunch invitation accepted. (do stuff here)");
-        output(100,500);
+        output(10,100);
         setTimeout(function(){
-          output(100,500);
+          output(10,100);
         },1000*1);
         setTimeout(function(){
-          output(100,500);
+          output(10,100);
         },1000*2);
       } else{
         bot.postMessageToGroup('random-lunch', "Lunch invitation already accepted.");
