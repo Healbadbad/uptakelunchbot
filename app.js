@@ -197,16 +197,16 @@ bot.on('message', function(msg){
     text = msg.text;
     // console.log(text.find("<@U1P11PZLH>"));
     if(text.startsWith("<@U1P11PZLH>") && (text.split(" ")[1] == "accept" || text.split(" ")[1] == "join")){
-      if(lunchSession.users.indexOf(msg.user) == -1){
+      if(lunchSession.users.indexOf(msg.user) == -1 && lunchSession.active){
         lunchSession.users.push(msg.user)
         bot.postMessageToGroup('random-lunch', "Lunch invitation accepted. (do stuff here)");
         output(50,150);
         setTimeout(function(){
           output(50,150);
-        },1000*1);
+        },400*1);
         setTimeout(function(){
           output(50,150);
-        },1000*2);
+        },400*2);
       } else{
         bot.postMessageToGroup('random-lunch', "Lunch invitation already accepted.");
       }
