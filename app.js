@@ -12,11 +12,23 @@ var app = express();
 
 
 var lunchSessions = []
-var lunchSession = {active:false, users:[], timeout=''}
+var lunchSession = {active:false, users:[], timeout:''}
 
 var params = {
   icon_emoji: ':beers:'
 };
+
+
+var Bot = require('slackbots');
+
+// create a bot
+var settings = {
+  token: process.env.BOT_API_KEY,
+  name: 'Hitch Bot'
+};
+var bot = new Bot(settings);
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -134,16 +146,6 @@ app.use(function(err, req, res, next) {
 
 
 
-var Bot = require('slackbots');
-
-// create a bot
-var settings = {
-  token: process.env.BOT_API_KEY,
-  name: 'Hitch Bot'
-};
-var bot = new Bot(settings);
-
-
 
 bot.on('start', function() {
   bot.postMessageToGroup('random-lunch', 'Random Lunch Service Running.', params);
@@ -185,7 +187,7 @@ bot.on('message', function(msg){
         lunchSession.active = true;
         lunchSession.users = [msg.user];
         var timer = setTimeout(function(){ // 5 minute timeout
-          bot.postMessageToGroup('random-lunch', "Test Lunch session ended with " + lunchSession.users.length + " users");
+          bot.postMessageToGroup('random-lunch', "Lunch Session Created for " + lunchSession.users.length + " users");
           lunchSession.active = false;
         }, 1000*1*60);
 
