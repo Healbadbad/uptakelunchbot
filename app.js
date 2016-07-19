@@ -14,6 +14,9 @@ var app = express();
 var lunchSessions = []
 var lunchSession = {active:false, users:[]}
 
+var params = {
+  icon_emoji: ':beers:'
+};
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -60,7 +63,7 @@ var output= function(power, time){
 app.post('/datastream',function(req,res) {
   console.log("DATA");
   if(!lunchSession.active){
-    bot.postMessageToGroup('random-lunch', "Lunch session started.");
+    bot.postMessageToGroup('random-lunch', "Lunch session started. type '@hitch: join' to accept", params);
     lunchSession.active = true;
     lunchSession.users = ["LittleBit"];
     output(50,150);
@@ -68,7 +71,7 @@ app.post('/datastream',function(req,res) {
       output(50,150);
     },1000*1);
     var timer = setTimeout(function(){ // 5 minute timeout
-      bot.postMessageToGroup('random-lunch', "Test Lunch session ended with " + lunchSession.users.length + " users");
+      bot.postMessageToGroup('random-lunch', "Test Lunch session ended with " + lunchSession.users.length + " users", params);
       lunchSession.active = false;
 
       output(10,100);
@@ -86,7 +89,7 @@ app.post('/datastream',function(req,res) {
 
     }, 1000*1*60);
   } else {
-    bot.postMessageToGroup('random-lunch', "Stop Hitting the button.");
+    bot.postMessageToGroup('random-lunch', "Stop Hitting the button.", params);
   }
   res.render("Posted");
 });
@@ -136,57 +139,14 @@ var Bot = require('slackbots');
 // create a bot
 var settings = {
   token: process.env.BOT_API_KEY,
-  name: 'Botty McBotface'
+  name: 'Hitch Bot'
 };
 var bot = new Bot(settings);
 
+
+
 bot.on('start', function() {
-  params = {"attachments": [
-    {
-      "title": "The Further Adventures of Slackbot",
-      "fields": [
-        {
-          "title": "Volume",
-          "value": "1",
-          "short": true
-        },
-        {
-          "title": "Issue",
-          "value": "3",
-          "short": true
-        }
-      ],
-      "author_name": "Stanford S. Strickland",
-      "author_icon": "https://api.slack.com/img/api/homepage_custom_integrations-2x.png",
-      "image_url": "http://i.imgur.com/OJkaVOI.jpg?1"
-    },
-    {
-      "title": "Synopsis",
-      "text": "After @episod pushed exciting changes to a devious new branch back in Issue 1, Slackbot notifies @don about an unexpected deploy..."
-    },
-    {
-      "fallback": "Would you recommend it to customers?",
-      "title": "Would you recommend it to customers?",
-      "callback_id": "comic_1234_xyz",
-      "color": "#3AA3E3",
-      "attachment_type": "default",
-      "actions": [
-        {
-          "name": "recommend",
-          "text": "Recommend",
-          "type": "button",
-          "value": "recommend"
-        },
-        {
-          "name": "no",
-          "text": "No",
-          "type": "button",
-          "value": "bad"
-        }
-      ]
-    }
-  ]};
-  bot.postMessageToGroup('random-lunch', 'Random Lunch Service Running.');
+  bot.postMessageToGroup('random-lunch', 'Random Lunch Service Running.', params);
   // bot.postMessageToUser('nathanblank', 'hello bro!', params);
   // bot.postMessageToGroup('some-private-group', 'hello group chat!');
 });
@@ -199,7 +159,7 @@ bot.on('message', function(msg){
     if(text.startsWith("<@U1P11PZLH>") && (text.split(" ")[1] == "accept" || text.split(" ")[1] == "join")){
       if(lunchSession.users.indexOf(msg.user) == -1 && lunchSession.active){
         lunchSession.users.push(msg.user)
-        bot.postMessageToGroup('random-lunch', "Lunch invitation accepted. (do stuff here)");
+        bot.postMessageToGroup('random-lunch', "Lunch invitation accepted.", params);
         output(50,150);
         setTimeout(function(){
           output(50,150);
@@ -208,7 +168,7 @@ bot.on('message', function(msg){
           output(50,150);
         },400*2);
       } else{
-        bot.postMessageToGroup('random-lunch', "Lunch invitation already accepted.");
+        bot.postMessageToGroup('random-lunch', "Lunch invitation already accepted.", params);
       }
 
       // TODO: send stuff to littlebits session
@@ -231,7 +191,7 @@ bot.on('message', function(msg){
 
 
       } else {
-        bot.postMessageToGroup('random-lunch', "Test Lunch session alread active!. Tell me accept to join the session.");
+        bot.postMessageToGroup('random-lunch', "Test Lunch session alread active!. type '@hitch: join' to join the session.");
       }
     }
     // console.log(msg.text);
