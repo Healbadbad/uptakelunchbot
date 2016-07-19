@@ -12,7 +12,7 @@ var app = express();
 
 
 var lunchSessions = []
-var lunchSession = {active:false, users:[]}
+var lunchSession = {active:false, users:[], timeout=''}
 
 var params = {
   icon_emoji: ':beers:'
@@ -157,16 +157,21 @@ bot.on('message', function(msg){
     text = msg.text;
     // console.log(text.find("<@U1P11PZLH>"));
     if(text.startsWith("<@U1P11PZLH>") && (text.split(" ")[1] == "accept" || text.split(" ")[1] == "join")){
-      if(lunchSession.users.indexOf(msg.user) == -1 && lunchSession.active){
+      if(lunchSession.users.indexOf(msg.user) == -1 && lunchSession.active) {
         lunchSession.users.push(msg.user)
         bot.postMessageToGroup('random-lunch', "Lunch invitation accepted.", params);
-        output(50,150);
-        setTimeout(function(){
-          output(50,150);
-        },400*1);
-        setTimeout(function(){
-          output(50,150);
-        },400*2);
+        output(50, 150);
+        setTimeout(function () {
+          output(50, 150);
+        }, 400 * 1);
+        setTimeout(function () {
+          output(50, 150);
+        }, 400 * 2);
+        if (lunchSession.timeout != ''){
+          clearTimeout(lunchSession.timeout);
+          lunchSession.active = false;
+          lunchSession.users = [];
+        }
       } else{
         bot.postMessageToGroup('random-lunch', "Lunch invitation already accepted.", params);
       }
