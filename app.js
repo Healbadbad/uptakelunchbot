@@ -57,7 +57,7 @@ var lunchSessions = []
 var lunchSession = {active:false, users:[], timeout:''}
 
 var params = {
-  icon_emoji: ':beers:'
+  icon_emoji: ':coffee:'
 };
 
 
@@ -125,7 +125,7 @@ app.post('/datastream',function(req,res) {
     setTimeout(function(){
       output(50,150);
     },1000*1);
-    var timer = setTimeout(function(){ // 5 minute timeout
+    lunchSession.timeout = setTimeout(function(){ // 5 minute timeout
       bot.postMessageToGroup('random-lunch', "Test Lunch session ended with " + lunchSession.users.length + " users", params);
       lunchSession.active = false;
 
@@ -144,7 +144,8 @@ app.post('/datastream',function(req,res) {
 
     }, 1000*1*60);
   } else {
-    bot.postMessageToGroup('random-lunch', "Stop Hitting the button.", params);
+    // bot.postMessageToGroup('random-lunch', "Stop Hitting the button.", params);
+    // Do nothing
   }
   res.render("Posted");
 });
