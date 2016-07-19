@@ -8,38 +8,47 @@ var request = require('request');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
-// function mapTeam(num){
-//   if (([...Array(10).keys()].slice(0)).indexOf(num) > -1){
-//     return ("Product (Strategy + Emerging)");
-//   }
-//   if  (([...Array(20).keys()].slice(10)).indexOf(num) > -1){
-//     return ("Corporate Development + Marketing & Communications");
-//   }
-//   if  (([...Array(30).keys()].slice(20)).indexOf(num) > -1){
-//     return ("Data Science");
-//   }
-//   if  (([...Array(40).keys()].slice(30)).indexOf(num) > -1){
-//     return("People + Legal + Security + (Physical + Digital)");
-//   }
-//   if  (([...Array(50).keys()].slice(40)).indexOf(num) > -1){
-//     return("Finance + Sales + Operations + Customer Service/ Success");
-//   }
-//   if  (([...Array(60).keys()].slice(50)).indexOf(num) > -1){
-//     return( "Mission Teams (Construction & Agriculture + Energy");
-//   }
-//   if  (([...Array(70).keys()].slice(60)).indexOf(num) > -1){
-//     return( "Mission Teams (Mining + Rail + Aviation + Healthcare");
-//   }
-//   if  (([...Array(80).keys()].slice(70)).indexOf(num) > -1){
-//     return ("Iot + UX")
-//   }
-//   if  (([...Array(90).keys()].slice(80)).indexOf(num) > -1){
-//     return("Development Groups: A-H (first letter of team name");
-//   }
-//   if  (([...Array(100).keys()].slice(90)).indexOf(num) > -1){
-//     return("Development Groups: I-Z (first letter of team name")
-//   }
-// }
+
+function mkSeq(low,high){
+  var list = [];
+  for (var i = low; i <= high; i++) {
+    list.push(i);
+  }
+  return(list)
+}
+
+function mapTeam(num){
+  if ((mkSeq(0,9).indexOf(num)) > -1){
+    return ("Product (Strategy + Emerging)");
+  }
+  if  ((mkSeq(10,19).indexOf(num)) > -1){
+    return ("Corporate Development + Marketing & Communications");
+  }
+  if  ((mkSeq(20,29).indexOf(num)) > -1){
+    return ("Data Science");
+  }
+  if  ((mkSeq(30,39).indexOf(num)) > -1){
+    return("People + Legal + Security + (Physical + Digital)");
+  }
+  if  ((mkSeq(40,49).indexOf(num)) > -1){
+    return("Finance + Sales + Operations + Customer Service/ Success");
+  }
+  if  ((mkSeq(50,59).indexOf(num)) > -1){
+    return( "Mission Teams (Construction & Agriculture + Energy");
+  }
+  if  ((mkSeq(60,69).indexOf(num)) > -1){
+    return( "Mission Teams (Mining + Rail + Aviation + Healthcare");
+  }
+  if  ((mkSeq(70,79).indexOf(num)) > -1){
+    return ("Iot + UX")
+  }
+  if  ((mkSeq(80,89).indexOf(num)) > -1){
+    return("Development Groups: A-H (first letter of team name");
+  }
+  if  ((mkSeq(90,99).indexOf(num)) > -1){
+    return("Development Groups: I-Z (first letter of team name")
+  }
+}
 
 var app = express();
 
@@ -107,7 +116,7 @@ var output= function(power, time){
 
 app.post('/datastream',function(req,res) {
   console.log("DATA");
-  console.log(req.body)
+  console.log(req.body.payload.percent)
   if(!lunchSession.active){
     bot.postMessageToGroup('random-lunch', "Lunch session started. type '@hitch: join' to accept", params);
     lunchSession.active = true;
