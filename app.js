@@ -121,7 +121,7 @@ app.post('/datastream',function(req,res) {
   console.log("DATA");
   console.log(req.body.payload.percent)
   if(!lunchSession.active){
-    bot.postMessageToGroup('random-lunch', "A coffee chat invitation from a member of *" + mapTeam(req.body.payload.percent) + "* has been sent. Type '@hitch: join' to accept the invite.", params);
+    bot.postMessageToGroup('random-coffee', "A coffee chat invitation from a member of *" + mapTeam(req.body.payload.percent) + "* has been sent. Type '@hitch: join' to accept the invite.", params);
     lunchSession.active = true;
     lunchSession.users = ["LittleBit"];
     output(50,150);
@@ -195,7 +195,7 @@ app.use(function(err, req, res, next) {
 
 
 bot.on('start', function() {
-  bot.postMessageToGroup('random-lunch', 'Random Lunch Service Running.', params);
+  bot.postMessageToGroup('random-coffee', 'Random Coffee Service Running.', params);
   // bot.postMessageToUser('nathanblank', 'hello bro!', params);
   // bot.postMessageToGroup('some-private-group', 'hello group chat!');
 });
@@ -208,7 +208,7 @@ bot.on('message', function(msg){
     if(text.startsWith("<@U1P11PZLH>") && (text.split(" ")[1] == "accept" || text.split(" ")[1] == "join" || text.split(" ")[1] == "Join")){
       if(lunchSession.users.indexOf(msg.user) == -1 && lunchSession.active) {
         lunchSession.users.push(msg.user)
-        bot.postMessageToGroup('random-lunch', "Coffee invitation accepted! Please head to the kitchen to meet them. :smile:", params);
+        bot.postMessageToGroup('random-coffee', "Coffee invitation accepted! Please head to the kitchen to meet them. :smile:", params);
         output(50, 150);
         setTimeout(function () {
           output(50, 150);
