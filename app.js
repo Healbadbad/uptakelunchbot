@@ -222,7 +222,7 @@ bot.on('message', function(msg){
           lunchSession.users = [];
         }
       } else{
-        bot.postMessageToGroup('random-coffee', "Lunch invitation already accepted.", params);
+        bot.postMessageToChannel('random-coffee', "Failed to join - No active session!", params);
       }
 
       // TODO: send stuff to littlebits session
