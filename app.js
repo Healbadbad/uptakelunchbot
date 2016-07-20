@@ -121,7 +121,7 @@ app.post('/datastream',function(req,res) {
   console.log("DATA");
   console.log(req.body.payload.percent)
   if(!lunchSession.active){
-    bot.postMessageToGroup('random-lunch', "A coffee chat invitation from a member of " + mapTeam(req.body.payload.percent) + " has been sent. Type '@hitch: join' to accept the invite.", params);
+    bot.postMessageToGroup('random-lunch', "A coffee chat invitation from a member of *" + mapTeam(req.body.payload.percent) + "* has been sent. Type '@hitch: join' to accept the invite.", params);
     lunchSession.active = true;
     lunchSession.users = ["LittleBit"];
     output(50,150);
