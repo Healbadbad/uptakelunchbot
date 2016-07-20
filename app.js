@@ -129,7 +129,7 @@ app.post('/datastream',function(req,res) {
       output(50,150);
     },1000*1);
     lunchSession.timeout = setTimeout(function(){ // 5 minute timeout
-      bot.postMessageToGroup('random-coffee', "Coffee session ended, no one accepted! ", params);
+      bot.postMessageToGroup('random-coffee', "Coffee session ended, no one accepted! ", params); 
       lunchSession.active = false;
 
       output(10,100);
