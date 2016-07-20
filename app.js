@@ -22,16 +22,16 @@ function mapTeam(num){
     return ("Product (Strategy + Emerging)");
   }
   if  ((mkSeq(10,19).indexOf(num)) > -1){
-    return ("Corporate Development + Marketing & Communications");
+    return ("Corporate Development or Marketing & Communications");
   }
   if  ((mkSeq(20,29).indexOf(num)) > -1){
     return ("Data Science");
   }
   if  ((mkSeq(30,39).indexOf(num)) > -1){
-    return("People + Legal + Security + (Physical + Digital)");
+    return("People or Legal or Security (Physical + Digital)");
   }
   if  ((mkSeq(40,49).indexOf(num)) > -1){
-    return("Finance + Sales + Operations + Customer Service/ Success");
+    return("Finance or Sales or Operations or Customer Service/ Success");
   }
   if  ((mkSeq(50,59).indexOf(num)) > -1){
     return( "Mission Teams (Construction & Agriculture + Energy");
@@ -40,7 +40,7 @@ function mapTeam(num){
     return( "Mission Teams (Mining + Rail + Aviation + Healthcare");
   }
   if  ((mkSeq(70,79).indexOf(num)) > -1){
-    return ("Iot + UX")
+    return ("Iot or UX")
   }
   if  ((mkSeq(80,89).indexOf(num)) > -1){
     return("Development Groups: A-H (first letter of team name");
@@ -118,7 +118,7 @@ app.post('/datastream',function(req,res) {
   console.log("DATA");
   console.log(req.body.payload.percent)
   if(!lunchSession.active){
-    bot.postMessageToGroup('random-lunch', "Lunch session started. type '@hitch: join' to accept", params);
+    bot.postMessageToGroup('random-lunch', "A coffee chat invitation from a member of" + mapTeam(req.body.payload.percent) + " has been sent. Type '@hitch: join' to accept the invite.", params);
     lunchSession.active = true;
     lunchSession.users = ["LittleBit"];
     output(50,150);
@@ -202,10 +202,10 @@ bot.on('message', function(msg){
   if(msg.type == 'message') {
     text = msg.text;
     // console.log(text.find("<@U1P11PZLH>"));
-    if(text.startsWith("<@U1P11PZLH>") && (text.split(" ")[1] == "accept" || text.split(" ")[1] == "join")){
+    if(text.startsWith("<@U1P11PZLH>") && (text.split(" ")[1] == "accept" || text.split(" ")[1] == "join" || text.split(" ")[1] == "Join")){
       if(lunchSession.users.indexOf(msg.user) == -1 && lunchSession.active) {
         lunchSession.users.push(msg.user)
-        bot.postMessageToGroup('random-lunch', "Lunch invitation accepted.", params);
+        bot.postMessageToGroup('random-lunch', "Coffee invitation accepted! Please head to the kitchen to meet them. :smile:", params);
         output(50, 150);
         setTimeout(function () {
           output(50, 150);
