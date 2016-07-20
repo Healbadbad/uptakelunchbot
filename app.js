@@ -121,7 +121,7 @@ app.post('/datastream',function(req,res) {
   console.log("DATA");
   console.log(req.body.payload.percent)
   if(!lunchSession.active){
-    bot.postMessageToGroup('random-coffee', "A coffee chat invitation from a member of *" + mapTeam(req.body.payload.percent) + "* has been sent. Type '@hitch: join' to accept the invite.", params);
+    bot.postMessageToChannel('random-coffee', "A coffee chat invitation from a member of *" + mapTeam(req.body.payload.percent) + "* has been sent. Type '@hitch: join' to accept the invite.", params);
     lunchSession.active = true;
     lunchSession.users = ["LittleBit"];
     output(50,150);
@@ -129,7 +129,7 @@ app.post('/datastream',function(req,res) {
       output(50,150);
     },1000*1);
     lunchSession.timeout = setTimeout(function(){ // 5 minute timeout
-      bot.postMessageToGroup('random-coffee', "Coffee session ended, no one accepted! ", params); 
+      bot.postMessageToChannel('random-coffee', "Coffee session ended, no one accepted! ", params);
       lunchSession.active = false;
 
       output(10,100);
@@ -195,7 +195,7 @@ app.use(function(err, req, res, next) {
 
 
 bot.on('start', function() {
-  bot.postMessageToGroup('random-coffee', 'Random Coffee Service Running.', params);
+  bot.postMessageToChannel('random-coffee', 'Random Coffee Service Running.', params);
   // bot.postMessageToUser('nathanblank', 'hello bro!', params);
   // bot.postMessageToGroup('some-private-group', 'hello group chat!');
 });
@@ -208,7 +208,7 @@ bot.on('message', function(msg){
     if(text.startsWith("<@U1P11PZLH>") && (text.split(" ")[1] == "accept" || text.split(" ")[1] == "join" || text.split(" ")[1] == "Join")){
       if(lunchSession.users.indexOf(msg.user) == -1 && lunchSession.active) {
         lunchSession.users.push(msg.user)
-        bot.postMessageToGroup('random-coffee', "Coffee invitation accepted! Please head to the kitchen to meet them. :smile:", params);
+        bot.postMessageToChannel('random-coffee', "Coffee invitation accepted! Please head to the kitchen to meet them. :smile:", params);
         output(50, 150);
         setTimeout(function () {
           output(50, 150);
@@ -222,7 +222,7 @@ bot.on('message', function(msg){
           lunchSession.users = [];
         }
       } else{
-        bot.postMessageToGroup('random-lunch', "Lunch invitation already accepted.", params);
+        bot.postMessageToGroup('random-coffee', "Lunch invitation already accepted.", params);
       }
 
       // TODO: send stuff to littlebits session
