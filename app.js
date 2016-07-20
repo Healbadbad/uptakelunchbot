@@ -48,7 +48,7 @@ function mapTeam(num){
     return("People or Legal or Security (Physical + Digital)");
   }
   if  ((mkSeq(90,99).indexOf(num)) > -1){
-    return ("Iot or UX")
+    return ("IoT or UX")
 
   }
 }
