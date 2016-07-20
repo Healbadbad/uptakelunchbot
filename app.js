@@ -129,7 +129,7 @@ app.post('/datastream',function(req,res) {
       output(50,150);
     },1000*1);
     lunchSession.timeout = setTimeout(function(){ // 5 minute timeout
-      bot.postMessageToGroup('random-lunch', "Test Lunch session ended with " + lunchSession.users.length + " users", params);
+      bot.postMessageToGroup('random-coffee', "Coffee session ended, no one accepted!", params);
       lunchSession.active = false;
 
       output(10,100);
@@ -145,7 +145,7 @@ app.post('/datastream',function(req,res) {
         output(3,500);
       },1000*3);
 
-    }, 1000*1*60);
+    }, 1000*5*60);
   } else {
     // bot.postMessageToGroup('random-lunch', "Stop Hitting the button.", params);
     // Do nothing
