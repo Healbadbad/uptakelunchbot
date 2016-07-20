@@ -19,7 +19,8 @@ function mkSeq(low,high){
 
 function mapTeam(num){
   if ((mkSeq(0,9).indexOf(num)) > -1){
-    return ("Product (Strategy + Emerging)");
+    return("Development Groups: A-H");
+
   }
   if  ((mkSeq(10,19).indexOf(num)) > -1){
     return ("Corporate Development or Marketing & Communications");
@@ -28,7 +29,8 @@ function mapTeam(num){
     return ("Data Science");
   }
   if  ((mkSeq(30,39).indexOf(num)) > -1){
-    return("People or Legal or Security (Physical + Digital)");
+    return("Development Groups: I-Z")
+
   }
   if  ((mkSeq(40,49).indexOf(num)) > -1){
     return("Finance or Sales or Operations or Customer Service/ Success");
@@ -40,13 +42,14 @@ function mapTeam(num){
     return( "Mission Teams (Mining + Rail + Aviation + Healthcare");
   }
   if  ((mkSeq(70,79).indexOf(num)) > -1){
-    return ("Iot or UX")
+    return ("Product (Strategy + Emerging)");
   }
   if  ((mkSeq(80,89).indexOf(num)) > -1){
-    return("Development Groups: A-H (first letter of team name");
+    return("People or Legal or Security (Physical + Digital)");
   }
   if  ((mkSeq(90,99).indexOf(num)) > -1){
-    return("Development Groups: I-Z (first letter of team name")
+    return ("Iot or UX")
+
   }
 }
 
@@ -118,7 +121,7 @@ app.post('/datastream',function(req,res) {
   console.log("DATA");
   console.log(req.body.payload.percent)
   if(!lunchSession.active){
-    bot.postMessageToGroup('random-lunch', "A coffee chat invitation from a member of" + mapTeam(req.body.payload.percent) + " has been sent. Type '@hitch: join' to accept the invite.", params);
+    bot.postMessageToGroup('random-lunch', "A coffee chat invitation from a member of " + mapTeam(req.body.payload.percent) + " has been sent. Type '@hitch: join' to accept the invite.", params);
     lunchSession.active = true;
     lunchSession.users = ["LittleBit"];
     output(50,150);
